@@ -17,13 +17,13 @@ const socket = io(API_BASE_URL, {
   reconnectionAttempts: Infinity,
 });
 
-const SingleChat = ({ selectedChat, setSelectedChat }: Props) => {
+const SingleChat = ({ selectedChat }: Props) => {
   const { currentUser, currentLoading } = useGetMyUser();
   const { sendMessages } = useSendMessage();
   const [newMessage, setNewMessage] = useState("");
   const [message, setMessage] = useState<MessageType[]>([]);
   const scrollEndRef = useRef<HTMLDivElement | null>(null);
-  const { messages, isLoading: isMessagesLoading } = useAllMessages(
+  const { messages} = useAllMessages(
     selectedChat._id
   );
 
