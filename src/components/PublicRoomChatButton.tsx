@@ -3,7 +3,6 @@ import { Button } from "./ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const PublicRoomChatButton = () => {
   const targetId = import.meta.env.VITE_TARGET_ID;
