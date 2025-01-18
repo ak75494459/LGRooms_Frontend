@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 
 type Props = {
   selectedChat: any;
-  setSelectedChat: any;
+  url: string;
 };
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -17,15 +17,13 @@ const socket = io(API_BASE_URL, {
   reconnectionAttempts: Infinity,
 });
 
-const SingleChat = ({ selectedChat }: Props) => {
+const SingleChat = ({ selectedChat, url }: Props) => {
   const { currentUser, currentLoading } = useGetMyUser();
   const { sendMessages } = useSendMessage();
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState(url);
   const [message, setMessage] = useState<MessageType[]>([]);
   const scrollEndRef = useRef<HTMLDivElement | null>(null);
-  const { messages} = useAllMessages(
-    selectedChat._id
-  );
+  const { messages } = useAllMessages(selectedChat._id);
 
   useEffect(() => {
     if (currentUser) {
@@ -103,7 +101,7 @@ const SingleChat = ({ selectedChat }: Props) => {
           {getSender(currentUser, selectedChat.users)}
         </div>
       </div>
-      <div className="flex-grow bg-white flex flex-col p-3 overflow-y-scroll h-[20rem]">
+      <div className="flex-grow bg-white flex flex-col p-3 overflow-y-scroll h-[20rem] w-full">
         {message.map((m, i) => (
           <div key={m._id || i} className="message mx-2 my-1">
             <span

@@ -1,10 +1,10 @@
-import { useGetPublicRoom } from "@/api/PublicRoomApi";
+import { useGetPublicRooms } from "@/api/PublicRoomApi";
 import PublicRoomCard from "@/components/PublicRoomCard";
 
 const PublicRoomPage = () => {
-  const { publicRoom, isLoading } = useGetPublicRoom();
+  const { publicRooms, isLoading } = useGetPublicRooms();
 
-  return <PublicRoomCard publicRoom={publicRoom} isLoading={isLoading} />;
+  return <PublicRoomCard publicRooms={publicRooms} isLoading={isLoading} />;
 };
 
 export default PublicRoomPage;

@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const PublicRoomChatButton = () => {
   const targetId = import.meta.env.VITE_TARGET_ID;
@@ -10,7 +11,7 @@ const PublicRoomChatButton = () => {
   const naviagte = useNavigate();
 
   const { isAuthenticated } = useAuth0();
-
+  const shareUrlToChat = window.location.href;
   const handleCreateChat = () => {
     if (!isAuthenticated) {
       toast.error("Please Log In for chat");
@@ -18,19 +19,20 @@ const PublicRoomChatButton = () => {
     }
     if (isAuthenticated) {
       createChat(targetId);
-      naviagte("/chat");
+      naviagte("/chat", { state: { shareUrl: shareUrlToChat } });
     }
   };
+
   return (
     <Button
-      className="flex justify-end m-3"
+      className="flex m-2 px-10 w-full items-center py-5 justify-center py-6 "
       onClick={handleCreateChat}
       disabled={isLoading}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="30"
+        height="30"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"

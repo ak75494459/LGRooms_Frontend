@@ -1,43 +1,45 @@
 import { PublicRoom } from "@/types";
 import AspectRatioPublicImage from "./AspectRatioPublicImage";
-import PublicRoomChatButton from "./PublicRoomChatButton";
+import { Link } from "react-router-dom";
 
 type Props = {
-  publicRoom: PublicRoom[];
+  publicRooms: PublicRoom[];
   isLoading: boolean;
 };
 
-const PublicRoomCard = ({ publicRoom, isLoading }: Props) => {
+const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
   if (isLoading) {
     return <div className="m-auto">Loading...</div>;
   }
 
   return (
     <div className="flex flex-wrap">
-      {publicRoom.map((room, index) => (
-        <div key={index} className="p-3 w-[50%]  max-md:w-full flex flex-wrap">
+      {publicRooms.map((room, index) => (
+        <div
+          key={index}
+          className="p-3 w-[49%] max-md:w-full flex shadow m-[3px] mt-[5px]"
+        >
           <div className="bg-gray-50 w-full">
             <div>
               <AspectRatioPublicImage imageUrl={room.imageUrl} />
             </div>
-            <div className="p-3 space-y-3">
-              <div className="w-full h-full bg-white rounded p-5 space-y-2 text-cover">
-                <h1 className="font-bold bg-gray-50 p-2 rounded">
-                  Rent:{" "}
-                  <span className="text-slate-500">
-                    {room.rent} <span className="text-[50%]">/month</span>
-                  </span>
-                </h1>
+            <Link to={`/publicroom/${room._id}`}>
+              <div className="p-3 space-y-3">
+                <div className="w-full h-full bg-white rounded p-5 space-y-2 text-cover">
+                  <h1 className="font-bold bg-gray-50 p-2 rounded">
+                    Rent:{" "}
+                    <span className="text-slate-500">
+                      {room.rent} <span className="text-[50%]">/month</span>
+                    </span>
+                  </h1>
+                </div>
               </div>
-            </div>
-            <div className="p-2 bg-gray-50 rounded max-sm:hidden w-full">
-              <div className="p-2  font-bold text-slate-500">
-                Description: {room.description}
+              <div className="p-2 bg-gray-50 rounded max-sm:hidden w-full">
+                <div className="p-2  font-bold text-slate-500">
+                  Description: {room.description}
+                </div>
               </div>
-            </div>
-            <div className="flex">
-              <PublicRoomChatButton />
-            </div>
+            </Link>
           </div>
         </div>
       ))}

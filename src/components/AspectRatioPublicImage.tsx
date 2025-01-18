@@ -17,7 +17,7 @@ const AspectRatioPublicImage = ({ imageUrl }: Props) => {
     );
   };
   return (
-    <div className="p-3 bg-gray-50">
+    <div className="p-3 bg-[#F5D790]">
       {/* Image Display */}
       <div className="relative">
         <AspectRatio ratio={16 / 9}>
