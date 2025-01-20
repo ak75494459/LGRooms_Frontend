@@ -8,7 +8,6 @@ import { io } from "socket.io-client";
 type Props = {
   selectedChat: any;
   url: string;
- 
 };
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -18,10 +17,7 @@ const socket = io(API_BASE_URL, {
   reconnectionAttempts: Infinity,
 });
 
-const SingleChat = ({
-  selectedChat,
-  url,
-}: Props) => {
+const SingleChat = ({ selectedChat, url }: Props) => {
   const { currentUser, currentLoading } = useGetMyUser();
   const { sendMessages } = useSendMessage();
   const [newMessage, setNewMessage] = useState(url);
@@ -31,7 +27,6 @@ const SingleChat = ({
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [socketConnected, setSocketConnected] = useState(false);
-  
 
   useEffect(() => {
     if (currentUser) {
@@ -51,7 +46,6 @@ const SingleChat = ({
     }
   }, [selectedChat]);
 
-
   useEffect(() => {
     if (scrollEndRef.current) {
       scrollEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -62,13 +56,12 @@ const SingleChat = ({
     if (messages && messages.length > 0) {
       setMessage(messages); // Update message state with new messages from the API
     }
-     
   }, [messages]);
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived: MessageType) => {
       if (!selectedChat || selectedChat._id !== newMessageReceived.chat._id) {
-        
+        //notifications
       } else {
         setMessage((prev) => [...prev, newMessageReceived]);
       }
@@ -78,8 +71,6 @@ const SingleChat = ({
       socket.off("message received");
     };
   }, [selectedChat]);
-
-
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
@@ -130,7 +121,7 @@ const SingleChat = ({
     users[0]._id === loggedUser._id ? users[1].email : users[0].email;
 
   return (
-    <div className="m-2 my-5 border shadow h-full w-full p-3 rounded flex flex-col">
+    <div className="m-2 my-5 border shadow h-full w-full p-3 rounded flex flex-col shadow-lg static max-md:mx-0 ">
       <div className="flex">
         <div className="bg-gray-50 text-black font-bold p-1 px-3 m-3 rounded">
           {getSender(currentUser, selectedChat.users)}
@@ -146,10 +137,12 @@ const SingleChat = ({
                 float: m.sender._id === currentUser._id ? "right" : "left",
                 marginTop: "10px",
                 borderRadius: "20px",
-                padding: "5px 15px",
-                maxWidth: "70%",
-                display: "flex",
-                flexDirection: "column",
+                padding: "10px 15px",
+                maxWidth: "70%", // Limit bubble width
+                display: "block",
+                wordWrap: "break-word", // Enable wrapping of long words
+                wordBreak: "break-word", // Break long words if necessary
+                whiteSpace: "pre-wrap", // Preserve line breaks in the message content
                 clear: "both",
               }}
             >
