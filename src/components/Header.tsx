@@ -12,6 +12,7 @@ const Header = () => {
         >
           LawGateROOms
         </Link>
+       
         <div className="md:hidden">
           <MobileNav />
         </div>

@@ -35,7 +35,7 @@ const RoomCard = ({ rooms, isLoading }: Props) => {
   return (
     <>
       {rooms.map((room, index) => (
-        <div key={index} className="p-3 bg-gray-50">
+        <div key={index} className="p-3 bg-gray-50 shadow shadow-lg">
           <div className="flex justify-end">
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center px-3 font-bold hover:text-[#91999E] gap-2">

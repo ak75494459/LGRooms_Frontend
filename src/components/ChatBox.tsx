@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import SingleChat from "./SingleChat";
 import { useLocation } from "react-router-dom";
 
+
 type Props = {
   chats: any[];
   isLoading: boolean;
@@ -13,6 +14,7 @@ const ChatBox = ({ chats, isLoading }: Props) => {
   const [url, setUrl] = useState("");
   const location = useLocation();
   const shareUrl = location.state?.shareUrl;
+
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -53,7 +55,10 @@ const ChatBox = ({ chats, isLoading }: Props) => {
         ))}
       </div>
       {selectedChat ? (
-        <SingleChat selectedChat={selectedChat} url={url} />
+        <SingleChat
+          selectedChat={selectedChat}
+          url={url}
+        />
       ) : null}
     </>
   );
