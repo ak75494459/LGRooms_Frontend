@@ -6,7 +6,7 @@ import React from "react";
 import Auth0ProviderWithNavigate from "./auth/auth0ProviderWithNavigate.tsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "sonner";
-
+import ChatProvider from "./Context/ChatProvider.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,8 +21,10 @@ createRoot(document.getElementById("root")!).render(
     <Router>
       <QueryClientProvider client={queryClient}>
         <Auth0ProviderWithNavigate>
-          <AppRoutes />
-          <Toaster visibleToasts={1} position="top-left" richColors/>
+          <ChatProvider>
+            <AppRoutes />
+            <Toaster visibleToasts={1} position="top-left" richColors />
+          </ChatProvider>
         </Auth0ProviderWithNavigate>
       </QueryClientProvider>
     </Router>

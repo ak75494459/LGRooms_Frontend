@@ -56,9 +56,11 @@ export const useSendMessage = () => {
   const sendMessage = async ({
     content,
     chatId,
+    selectedChatId,
   }: {
     content: string;
     chatId: string;
+    selectedChatId: string;
   }) => {
     const accessToken = await getAccessTokenSilently();
 
@@ -68,7 +70,7 @@ export const useSendMessage = () => {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ content, chatId }),
+      body: JSON.stringify({ content, chatId, selectedChatId }),
     });
     if (!response.ok) {
       throw new Error("Failed to send message");

@@ -122,3 +122,32 @@ export const useUpdateMyUser = () => {
 
   return { updateUser, updateLoading };
 };
+
+
+export const useUpdateIsChatSelected = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const updateIsChatSelected = async (isChatSelected: boolean) => {
+    const accessToken = await getAccessTokenSilently();
+    const response = await fetch(`${API_BASE_URL}/api/my/user/chatUpdate`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isChatSelected }), // ✅ Fixed format
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update user");
+    }
+
+    return response.json();
+  };
+
+  const { mutateAsync: isChatSelected, isLoading } = useMutation(
+    updateIsChatSelected
+  );
+
+  return { isChatSelected, isLoading };
+};

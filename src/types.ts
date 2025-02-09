@@ -7,6 +7,7 @@ export type User = {
 };
 
 export type Room = {
+  user: User;
   _id: string;
   pgName: string;
   imageUrl: string[];
@@ -31,3 +32,5 @@ export type MessageType = {
   readBy: any;
   chat: any;
 };
+
+

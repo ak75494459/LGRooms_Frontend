@@ -17,7 +17,7 @@ const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
       {publicRooms.map((room, index) => (
         <div
           key={index}
-          className="p-3 w-[49%] max-md:w-full flex shadow m-[3px] mt-[5px]"
+          className="p-3 w-[49%] max-md:w-full flex shadow m-[3px] mt-[10px]"
         >
           <div className="bg-gray-50 w-full">
             <div>

@@ -30,6 +30,27 @@ export const useGetMyRooms = () => {
   return { rooms, isLoading };
 };
 
+export const useGetRooms = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const getRoomsRequest = async () => {
+    const accessToken = await getAccessTokenSilently();
+    const response = await fetch(`${API_BASE_URL}/api/my/rooms/all`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("failed to get rooms");
+    }
+    return response.json();
+  };
+
+  const { data: rooms, isLoading } = useQuery("fetchRooms", getRoomsRequest);
+
+  return { rooms, isLoading };
+};
+
 export const useCreateMyRoom = () => {
   const { getAccessTokenSilently } = useAuth0();
 

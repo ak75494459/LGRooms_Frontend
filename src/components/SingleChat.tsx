@@ -4,9 +4,9 @@ import { useAllMessages, useSendMessage } from "@/api/MessageApi";
 import { useGetMyUser } from "@/api/MyUserApi";
 import { MessageType } from "@/types";
 import { io } from "socket.io-client";
+import { ChatState } from "@/Context/ChatProvider";
 
 type Props = {
-  selectedChat: any;
   url: string;
 };
 
@@ -17,12 +17,14 @@ const socket = io(API_BASE_URL, {
   reconnectionAttempts: Infinity,
 });
 
-const SingleChat = ({ selectedChat, url }: Props) => {
+const SingleChat = ({ url }: Props) => {
   const { currentUser, currentLoading } = useGetMyUser();
   const { sendMessages } = useSendMessage();
   const [newMessage, setNewMessage] = useState(url);
   const [message, setMessage] = useState<MessageType[]>([]);
   const scrollEndRef = useRef<HTMLDivElement | null>(null);
+  const { selectedChat, setNotification, setActiveChatId, activeChatId } =
+    ChatState();
   const { messages } = useAllMessages(selectedChat._id);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -45,6 +47,12 @@ const SingleChat = ({ selectedChat, url }: Props) => {
       socket.emit("join chat", selectedChat._id);
     }
   }, [selectedChat]);
+  useEffect(() => {
+    if (selectedChat?._id) {
+      setActiveChatId(selectedChat._id);
+      socket.emit("join chat", selectedChat._id);
+    }
+  }, [selectedChat]);
 
   useEffect(() => {
     if (scrollEndRef.current) {
@@ -54,14 +62,19 @@ const SingleChat = ({ selectedChat, url }: Props) => {
 
   useEffect(() => {
     if (messages && messages.length > 0) {
-      setMessage(messages); // Update message state with new messages from the API
+      setMessage(messages);
     }
   }, [messages]);
 
   useEffect(() => {
-    socket.on("message received", (newMessageReceived: MessageType) => {
-      if (!selectedChat || selectedChat._id !== newMessageReceived.chat._id) {
-        //notifications
+    socket.on("message received", async (newMessageReceived: MessageType) => {
+      if (selectedChat._id !== newMessageReceived.chat._id) {
+        setNotification((prev) => {
+          if (!prev.some((msg) => msg._id === newMessageReceived._id)) {
+            return [newMessageReceived, ...prev];
+          }
+          return prev;
+        });
       } else {
         setMessage((prev) => [...prev, newMessageReceived]);
       }
@@ -103,6 +116,7 @@ const SingleChat = ({ selectedChat, url }: Props) => {
         const sentMessage = await sendMessages({
           content: newMessage,
           chatId: selectedChat._id,
+          selectedChatId: activeChatId,
         });
         socket.emit("new message", sentMessage);
         setMessage((prev) => [...prev, sentMessage]);

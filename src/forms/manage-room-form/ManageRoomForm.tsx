@@ -37,16 +37,11 @@ const ManageRoomForm = ({ onSave, isLoading }: Props) => {
       location: "",
       rent: 0,
       description: "",
-      contactNumber:0
+      contactNumber: 0,
     },
   });
 
   const submitData = (formDataJson: RoomFormData) => {
-    console.log("Form data:", formDataJson);
-    console.log("Image files:", formDataJson.imageFile);
-
-    // This should be an array of File objects
-
     const formData = new FormData();
     formData.append("pgName", formDataJson.pgName);
     formData.append("location", formDataJson.location);
@@ -54,17 +49,13 @@ const ManageRoomForm = ({ onSave, isLoading }: Props) => {
     formData.append("contactNumber", formDataJson.contactNumber.toString());
     formData.append("description", formDataJson.description);
 
-    // Check if image files are present and append them
     if (formDataJson.imageFile && Array.isArray(formDataJson.imageFile)) {
       formDataJson.imageFile.forEach((file) => {
         formData.append("imageFile", file); // Append each file with the same key
       });
     }
-    console.log("FormData content:");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
-    onSave(formData); // Submit the form data
+    console.log("FormData Entries:", Object.fromEntries(formData.entries()));
+    onSave(formData);
     form.reset();
   };
 

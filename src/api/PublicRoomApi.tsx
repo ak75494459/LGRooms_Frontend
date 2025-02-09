@@ -1,10 +1,59 @@
 import { PublicRoom } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export const useCreatePublicRoom = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const createPublicRoomRequest = async (
+    publicRoomFormData: FormData
+  ): Promise<PublicRoom> => {
+    const accessToken = await getAccessTokenSilently();
+    const response = await fetch(`${API_BASE_URL}/api/public/rooms`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: publicRoomFormData,
+    });
+
+    if (!response.ok) {
+      let errorMessage = "Failed to create room";
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData?.message || errorMessage;
+      } catch {
+        // If response is not JSON, fallback to generic error
+      }
+      throw new Error(errorMessage);
+    }
+
+    return response.json();
+  };
+
+  const {
+    mutate: createPublicRoom,
+    isLoading,
+    isSuccess,
+    error,
+  } = useMutation(createPublicRoomRequest, {
+    onSuccess: () => {
+      toast.success("Room created!");
+      // Optionally, invalidate related queries to refetch data
+      // queryClient.invalidateQueries(["publicRooms"]);
+    },
+    onError: (err: any) => {
+      const errorMessage = err?.message || "Unable to create room";
+      toast.error(errorMessage);
+    },
+  });
+
+  return { createPublicRoom, isLoading, isSuccess, error };
+};
 
 export const useGetPublicRooms = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -46,7 +95,7 @@ export const useGetPublicRoom = () => {
 
   const getPublicRoomRequest = async (context: {
     queryKey: [string, string];
-  }) : Promise<PublicRoom> => {
+  }): Promise<PublicRoom> => {
     const [, roomId] = context.queryKey;
 
     const response = await fetch(`${API_BASE_URL}/api/public/rooms/${roomId}`, {
