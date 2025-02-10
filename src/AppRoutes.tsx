@@ -11,10 +11,16 @@ import PublicRoomContainerPage from "./pages/PublicRoomContainerPage";
 import ManagePublicRoomPage from "./pages/ManagePublicRoomPage";
 import { useAuth0 } from "@auth0/auth0-react";
 import RoomDetailsPage from "./pages/RoomDetailsPage";
+import { useEffect } from "react";
+import { useUpdateIsChatSelected } from "./api/MyUserApi";
 
 const AppRoutes = () => {
   const { user } = useAuth0();
+  const { isChatSelected } = useUpdateIsChatSelected();
   const CONTROLLER_EMAIL = import.meta.env.VITE_PUBLIC_ROOM_EMAIL;
+  useEffect(() => {
+    isChatSelected(false);
+  }, []);
   return (
     <Routes>
       <Route

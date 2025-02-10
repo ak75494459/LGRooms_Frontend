@@ -1,7 +1,7 @@
 import { Input } from "./ui/input";
 import { useEffect, useRef, useState } from "react";
 import { useAllMessages, useSendMessage } from "@/api/MessageApi";
-import { useGetMyUser } from "@/api/MyUserApi";
+import { useGetMyUser, useUpdateIsChatSelected } from "@/api/MyUserApi";
 import { MessageType } from "@/types";
 import { io } from "socket.io-client";
 import { ChatState } from "@/Context/ChatProvider";
@@ -29,12 +29,31 @@ const SingleChat = ({ url }: Props) => {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [socketConnected, setSocketConnected] = useState(false);
+  const { isChatSelected } = useUpdateIsChatSelected();
 
   useEffect(() => {
-    if (currentUser) {
-      socket.emit("setup", currentUser);
-      socket.on("connected", () => setSocketConnected(true));
-    }
+    if (!currentUser) return;
+
+    socket.emit("setup", currentUser);
+    socket.on("connected", () => setSocketConnected(true));
+
+    return () => {
+      socket.off("connected");
+    };
+  }, [currentUser]);
+  useEffect(() => {
+    const handleDisconnect = () => {
+      console.log("User is disconnecting...");
+      socket.emit("user_disconnected", currentUser?._id);
+      isChatSelected(false); // Update state/API before closing
+      socket.disconnect();
+    };
+
+    window.addEventListener("beforeunload", handleDisconnect);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleDisconnect);
+    };
   }, [currentUser]);
 
   useEffect(() => {

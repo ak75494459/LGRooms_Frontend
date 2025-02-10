@@ -75,7 +75,7 @@ const Notification = () => {
           </svg>
         </HoverCardTrigger>
         {notifications.length > 0 && (
-          <HoverCardContent className="ml-2 cursor-pointer overflow-y-scroll h-[20rem]">
+          <HoverCardContent className="ml-2 max-sm:mr-6 cursor-pointer overflow-y-scroll h-[20rem]">
             {isLoading && <div>Loading...</div>}
 
             {notifications.map((notification: any, index: number) => (
