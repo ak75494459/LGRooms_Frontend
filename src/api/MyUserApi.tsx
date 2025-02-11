@@ -123,30 +123,48 @@ export const useUpdateMyUser = () => {
   return { updateUser, updateLoading };
 };
 
-
 export const useUpdateIsChatSelected = () => {
   const { getAccessTokenSilently } = useAuth0();
 
   const updateIsChatSelected = async (isChatSelected: boolean) => {
-    const accessToken = await getAccessTokenSilently();
-    const response = await fetch(`${API_BASE_URL}/api/my/user/chatUpdate`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ isChatSelected }), // ✅ Fixed format
-    });
+    try {
+      const accessToken = await getAccessTokenSilently();
+      const response = await fetch(`${API_BASE_URL}/api/my/user/chatUpdate`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ isChatSelected }), // ✅ Fixed incorrect body format
+      });
 
-    if (!response.ok) {
-      throw new Error("Failed to update user");
+      if (!response.ok) {
+        throw new Error(
+          `Failed to update chat selection: ${response.statusText}`
+        );
+      }
+
+      return response.json();
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error(
+          "An unknown error occurred while updating chat selection."
+        );
+      }
     }
-
-    return response.json();
   };
 
   const { mutateAsync: isChatSelected, isLoading } = useMutation(
-    updateIsChatSelected
+    updateIsChatSelected,
+    {
+      onError: (error) => {
+        const errorMessage =
+          error instanceof Error ? error.message : "An unknown error occurred.";
+        toast.error(errorMessage);
+      },
+    }
   );
 
   return { isChatSelected, isLoading };
