@@ -8,11 +8,11 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         <Link
           to="/"
-          className="text-3xl font-bold tracking-tight text-black hover:text-[#91999E]"
+          className="text-3xl max-sm:text-xl font-bold tracking-tight text-black hover:text-[#91999E] "
         >
           LawGateROOms
         </Link>
-       
+
         <div className="md:hidden">
           <MobileNav />
         </div>

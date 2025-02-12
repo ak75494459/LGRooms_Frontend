@@ -65,8 +65,8 @@ const MobileNotification = () => {
           )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#0d0c0c"
@@ -80,23 +80,28 @@ const MobileNotification = () => {
           </svg>
         </DropdownMenuTrigger>
         {notifications.length > 0 && (
-          <DropdownMenuContent className="ml-2 max-sm:mr-6 cursor-pointer overflow-y-scroll ">
+          <DropdownMenuContent className="w-[300px] max-w-xs bg-white shadow-lg rounded-lg p-2 max-h-60 overflow-y-auto">
             {isLoading && <div>Loading...</div>}
 
             {notifications.map((notification: any, index: number) => (
               <Link
                 to="/chat"
                 onClick={() => handleRedirectToChat(notification)}
-                className="flex flex-col text-[10px] bg-gray-300 m-2 p-2 rounded shadow break-words break-all whitespace-pre-wrap"
+                className="flex flex-col text-sm bg-gray-200 m-2 p-2 rounded shadow break-words whitespace-normal"
                 key={index}
               >
-                {notification.message?.sender.email} -{" "}
-                {notification.message?.content || "No message content"}
+                <span className="font-semibold">
+                  {notification.message?.sender.email}
+                </span>
+                <span>
+                  {notification.message?.content || "No message content"}
+                </span>
               </Link>
             ))}
+
             {notifications.length > 0 && (
               <div
-                className="underline font-bold flex justify-end cursor-pointer"
+                className="underline font-bold flex justify-end cursor-pointer text-sm p-2"
                 onClick={() => handleClearNotification()}
               >
                 Clear
