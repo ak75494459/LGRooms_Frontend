@@ -10,13 +10,14 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useAuth0 } from "@auth0/auth0-react";
 import MobileNavLinks from "./MobileNavLinks";
-import Notification from "./Notification";
+
+import MobileNotification from "./MobileNotification";
 
 const MobileNav = () => {
   const { isAuthenticated, user, loginWithRedirect } = useAuth0();
   return (
     <div className="flex space-x-4">
-      <Notification />
+      <MobileNotification />
       <Sheet>
         <SheetTrigger asChild>
           <Menu className="text-black" />
