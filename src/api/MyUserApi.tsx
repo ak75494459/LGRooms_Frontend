@@ -156,16 +156,8 @@ export const useUpdateIsChatSelected = () => {
     }
   };
 
-  const { mutateAsync: isChatSelected, isLoading } = useMutation(
-    updateIsChatSelected,
-    {
-      onError: (error) => {
-        const errorMessage =
-          error instanceof Error ? error.message : "An unknown error occurred.";
-        toast.error(errorMessage);
-      },
-    }
-  );
+  const { mutateAsync: isChatSelected, isLoading } =
+    useMutation(updateIsChatSelected);
 
   return { isChatSelected, isLoading };
 };

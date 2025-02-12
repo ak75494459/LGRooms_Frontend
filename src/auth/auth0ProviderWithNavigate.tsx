@@ -13,7 +13,7 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
   const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
   if (!domain || !clientId || !redirectUri || !audience) {
-    throw new Error("unable to initialise auth");
+    throw new Error("Unable to initialize Auth");
   }
 
   const onRedirectCallback = (appState?: AppState) => {
@@ -29,6 +29,9 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
         audience,
       }}
       onRedirectCallback={onRedirectCallback}
+      cacheLocation="localstorage" // 🟢 Persist login after reload
+      useRefreshTokens={true} // 🟢 Enable long-lived sessions
+      useRefreshTokensFallback={true} // 🟢 Fix login issues on Safari/mobile
     >
       {children}
     </Auth0Provider>
