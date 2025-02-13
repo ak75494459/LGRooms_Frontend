@@ -9,15 +9,14 @@ import PublicRoomPage from "./pages/PublicRoomPage";
 import ChatBoxPage from "./pages/ChatBoxPage";
 import PublicRoomContainerPage from "./pages/PublicRoomContainerPage";
 import ManagePublicRoomPage from "./pages/ManagePublicRoomPage";
-import { useAuth0 } from "@auth0/auth0-react";
 import RoomDetailsPage from "./pages/RoomDetailsPage";
 import { useEffect } from "react";
-import { useUpdateIsChatSelected } from "./api/MyUserApi";
+import { useGetMyUser, useUpdateIsChatSelected } from "./api/MyUserApi";
 
 const AppRoutes = () => {
-  const { user } = useAuth0();
+  const { currentUser } = useGetMyUser();
   const { isChatSelected } = useUpdateIsChatSelected();
-  const CONTROLLER_EMAIL = import.meta.env.VITE_PUBLIC_ROOM_EMAIL;
+  const targetId = import.meta.env.VITE_TARGET_ID;
   useEffect(() => {
     isChatSelected(false);
   }, []);
@@ -74,7 +73,7 @@ const AppRoutes = () => {
             </Layout>
           }
         />
-        {user?.email === CONTROLLER_EMAIL ? (
+        {currentUser?._id === targetId ? (
           <Route
             path="/add-public-room"
             element={
@@ -84,7 +83,7 @@ const AppRoutes = () => {
             }
           />
         ) : null}
-        {user?.email === CONTROLLER_EMAIL ? (
+        {currentUser?._id === targetId ? (
           <Route
             path="/rooms-details"
             element={

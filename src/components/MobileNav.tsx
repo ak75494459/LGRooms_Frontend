@@ -10,11 +10,11 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useAuth0 } from "@auth0/auth0-react";
 import MobileNavLinks from "./MobileNavLinks";
-
 import MobileNotification from "./MobileNotification";
 
 const MobileNav = () => {
   const { isAuthenticated, user, loginWithRedirect } = useAuth0();
+
   return (
     <div className="flex space-x-4">
       <MobileNotification />

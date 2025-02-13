@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useGetMyUser } from "@/api/MyUserApi";
 
 const MobileNavLinks = () => {
-  const { user, logout } = useAuth0();
-  const CONTROLLER_EMAIL = import.meta.env.VITE_PUBLIC_ROOM_EMAIL;
+  const { logout } = useAuth0();
+  const { currentUser } = useGetMyUser();
+  const targetId = import.meta.env.VITE_TARGET_ID;
   return (
     <>
-     
       <div className="flex flex-col flex-1 gap-y-2">
         <Link
           to="/user-profile"
@@ -27,7 +28,7 @@ const MobileNavLinks = () => {
         >
           Chat with us
         </Link>
-        {user?.email === CONTROLLER_EMAIL ? (
+        {currentUser?._id === targetId ? (
           <Link
             to="/add-public-room"
             className="font-bold hover:text-[#91999E]"
@@ -35,7 +36,7 @@ const MobileNavLinks = () => {
             Add Public Room
           </Link>
         ) : null}
-        {user?.email === CONTROLLER_EMAIL ? (
+        {currentUser?._id === targetId ? (
           <Link to="/rooms-details" className="font-bold hover:text-[#91999E] ">
             Room Details
           </Link>

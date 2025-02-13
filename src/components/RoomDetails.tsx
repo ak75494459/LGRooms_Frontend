@@ -32,7 +32,7 @@ const RoomDetails = ({ rooms, isLoading }: Props) => {
           </div>
           <div className="p-1">
             <div className="font-bold p-2">Image Url</div>
-            <div className="p-4 bg-white text-blue-600">
+            <div className="p-4 bg-white text-blue-600 break-words whitespace-normal">
               {room.imageUrl.map((imageUrl, index) => (
                 <div>
                   <span className="text-black mr-2">{index + 1}.</span>

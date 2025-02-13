@@ -11,7 +11,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useClearNotification } from "@/api/NotificationApi";
-import { useUpdateIsChatSelected } from "@/api/MyUserApi";
+import { useGetMyUser, useUpdateIsChatSelected } from "@/api/MyUserApi";
 
 type Props = {
   isLoading: boolean;
@@ -24,8 +24,8 @@ const ChatBox = ({ isLoading }: Props) => {
   const { isAuthenticated } = useAuth0();
   const { selectedChat, setSelectedChat, fetchChats: chats } = ChatState();
   const { notification, setNotification } = ChatState();
-  const { user } = useAuth0();
-  const CONTROLLER_EMAIL = import.meta.env.VITE_PUBLIC_ROOM_EMAIL;
+  const { currentUser } = useGetMyUser();
+  const targetId = import.meta.env.VITE_TARGET_ID;
   const { deleteNotification } = useClearNotification();
   const { isChatSelected } = useUpdateIsChatSelected();
 
@@ -52,7 +52,7 @@ const ChatBox = ({ isLoading }: Props) => {
 
   return (
     <>
-      {user?.email === CONTROLLER_EMAIL ? (
+      {currentUser?._id === targetId ? (
         <HoverCard>
           <HoverCardTrigger>
             {notification.length > 0 ? (

@@ -10,10 +10,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import Notification from "./Notification";
+import { useGetMyUser } from "@/api/MyUserApi";
 
 const UserNameMenu = () => {
   const { user, logout } = useAuth0();
-  const CONTROLLER_EMAIL = import.meta.env.VITE_PUBLIC_ROOM_EMAIL;
+  const { currentUser } = useGetMyUser();
+  const targetId = import.meta.env.VITE_TARGET_ID;
   return (
     <>
       <Notification />
@@ -44,7 +46,7 @@ const UserNameMenu = () => {
               Chat with us
             </Link>
           </DropdownMenuItem>
-          {user?.email === CONTROLLER_EMAIL ? (
+          {currentUser?._id === targetId ? (
             <DropdownMenuItem>
               <Link
                 to="/add-public-room"
@@ -54,7 +56,7 @@ const UserNameMenu = () => {
               </Link>
             </DropdownMenuItem>
           ) : null}
-          {user?.email === CONTROLLER_EMAIL ? (
+          {currentUser?._id === targetId ? (
             <DropdownMenuItem>
               <Link
                 to="/rooms-details"

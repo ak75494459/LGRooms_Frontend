@@ -150,8 +150,10 @@ const SingleChat = ({ url }: Props) => {
     return <div>Loading...</div>;
   }
 
-  const getSender = (loggedUser: any, users: any) =>
-    users[0]._id === loggedUser._id ? users[1].email : users[0].email;
+  const getSender = (loggedUser: any, users: any) => {
+    const sender = users[0]._id === loggedUser._id ? users[1] : users[0];
+    return sender.name ? sender.name : sender.email;
+  };
 
   return (
     <div className="m-2 my-5 border shadow h-full w-full p-3 rounded flex flex-col shadow-lg static max-md:mx-0 ">
