@@ -173,11 +173,11 @@ const SingleChat = ({ url }: Props) => {
                 marginTop: "10px",
                 borderRadius: "20px",
                 padding: "10px 15px",
-                maxWidth: "70%", // Limit bubble width
+                maxWidth: "70%",
                 display: "block",
-                wordWrap: "break-word", // Enable wrapping of long words
-                wordBreak: "break-word", // Break long words if necessary
-                whiteSpace: "pre-wrap", // Preserve line breaks in the message content
+                wordWrap: "break-word",
+                wordBreak: "break-word",
+                whiteSpace: "pre-wrap",
                 clear: "both",
               }}
             >

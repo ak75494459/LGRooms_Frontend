@@ -55,22 +55,28 @@ export const useCreateMyRoom = () => {
   const { getAccessTokenSilently } = useAuth0();
 
   const createMyRoomRequest = async (roomFormData: FormData): Promise<Room> => {
-    const accessToken = await getAccessTokenSilently();
+    try {
+      const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/rooms`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: roomFormData,
-    });
+      const response = await fetch(`${API_BASE_URL}/api/my/rooms`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: roomFormData,
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData?.message || "Failed to create room");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || "Failed to create room");
+      }
+
+      return response.json();
+    } catch (error: any) {
+      throw new Error(
+        error.message || "Something went wrong while creating the room."
+      );
     }
-
-    return response.json();
   };
 
   const {
@@ -80,11 +86,10 @@ export const useCreateMyRoom = () => {
     error,
   } = useMutation(createMyRoomRequest, {
     onSuccess: () => {
-      toast.success("Room created!");
+      toast.success("Room created successfully!");
     },
     onError: (err: any) => {
-      const errorMessage = err?.message || "Unable to create room";
-      toast.error(errorMessage);
+      toast.error(err?.message || "Unable to create room");
     },
   });
 
