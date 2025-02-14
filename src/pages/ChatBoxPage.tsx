@@ -8,12 +8,15 @@ const ChatBoxPage = () => {
   const { setFetchChats } = ChatState();
   const { createChat } = useAccessChat();
   const targetId = import.meta.env.VITE_TARGET_ID;
-  
+
   // 🔥 Use a ref to track chat creation status
   const isCreatingChat = useRef(false);
 
   useEffect(() => {
-    if ((!chats || (Array.isArray(chats) && chats.length === 0)) && !isCreatingChat.current) {
+    if (
+      (!chats || (Array.isArray(chats) && chats.length === 0)) &&
+      !isCreatingChat.current
+    ) {
       isCreatingChat.current = true; // Prevent duplicate calls
       createChat(targetId).finally(() => {
         isCreatingChat.current = false; // Reset after completion

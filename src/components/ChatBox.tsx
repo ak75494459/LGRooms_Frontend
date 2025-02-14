@@ -40,7 +40,6 @@ const ChatBox = ({ isLoading }: Props) => {
 
   const handleSelectChat = async (chat: any) => {
     setSelectedChat(chat);
-
     setUrl(shareUrl);
     deleteNotification();
     await isChatSelected(true);
