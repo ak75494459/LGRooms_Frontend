@@ -23,6 +23,7 @@ export type PublicRoom = {
   imageUrl: string[];
   rent: number;
   description: string;
+  location: string;
 };
 
 export type MessageType = {
@@ -32,5 +33,3 @@ export type MessageType = {
   readBy: any;
   chat: any;
 };
-
-

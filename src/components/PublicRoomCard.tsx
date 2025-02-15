@@ -38,10 +38,9 @@ const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
                 <div className="p-2  font-bold text-slate-500">
                   Description: {room.description}
                 </div>
-
-                <div className="p-2  font-bold text-slate-500">
-                  location: {room.location}
-                </div>
+              </div>
+              <div className="p-2  font-bold text-slate-500">
+                location: {room.location}
               </div>
             </Link>
           </div>
