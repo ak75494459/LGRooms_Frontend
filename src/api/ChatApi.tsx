@@ -26,13 +26,14 @@ export const useAccessChat = () => {
     mutateAsync: createChat,
     isLoading,
     isError,
+    isSuccess,
   } = useMutation(accessChat);
 
   if (isError) {
     toast.error("error in access chat");
   }
 
-  return { createChat, isLoading };
+  return { createChat, isLoading, isSuccess };
 };
 
 export const useFetchChat = () => {
@@ -63,11 +64,12 @@ export const useFetchChat = () => {
     data: chats,
     isLoading,
     isError,
+    refetch,
   } = useQuery("fetchChat", fetchChat, {
     onError: (error: any) => {
       toast.error(error.message || "Unable to fetch chats");
     },
   });
 
-  return { chats, isLoading, isError };
+  return { chats, isLoading, isError, refetch };
 };

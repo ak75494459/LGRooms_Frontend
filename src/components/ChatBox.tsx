@@ -15,14 +15,15 @@ import { useGetMyUser, useUpdateIsChatSelected } from "@/api/MyUserApi";
 
 type Props = {
   isLoading: boolean;
+  chats: any;
 };
 
-const ChatBox = ({ isLoading }: Props) => {
+const ChatBox = ({ isLoading, chats }: Props) => {
   const [url, setUrl] = useState("");
   const location = useLocation();
   const shareUrl = location.state?.shareUrl;
   const { isAuthenticated } = useAuth0();
-  const { selectedChat, setSelectedChat, fetchChats: chats } = ChatState();
+  const { selectedChat, setSelectedChat } = ChatState();
   const { notification, setNotification } = ChatState();
   const { currentUser } = useGetMyUser();
   const targetId = import.meta.env.VITE_TARGET_ID;

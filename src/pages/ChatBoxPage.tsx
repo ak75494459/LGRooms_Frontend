@@ -1,44 +1,45 @@
 import { useAccessChat, useFetchChat } from "@/api/ChatApi";
 import ChatBox from "@/components/ChatBox";
 import { ChatState } from "@/Context/ChatProvider";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ChatBoxPage = () => {
-  const { chats, isLoading } = useFetchChat();
-  const { setFetchChats } = ChatState();
+  const { chats, isLoading, refetch } = useFetchChat(); // `refetch` to manually trigger fetching chats
+  const { setFetchChats, fetchChats } = ChatState();
   const { createChat } = useAccessChat();
   const targetId = import.meta.env.VITE_TARGET_ID;
 
-  // 🔥 Use a ref to track chat creation status
   const isCreatingChat = useRef(false);
+  const [chatCreated, setChatCreated] = useState(false);
 
   useEffect(() => {
     if (
       (!chats || (Array.isArray(chats) && chats.length === 0)) &&
       !isCreatingChat.current
     ) {
-      isCreatingChat.current = true; // Prevent duplicate calls
-      createChat(targetId).finally(() => {
-        isCreatingChat.current = false; // Reset after completion
-      });
+      isCreatingChat.current = true;
+      createChat(targetId)
+        .then(() => {
+          setChatCreated(true); // Mark chat as created
+          refetch(); // ✅ Fetch chats after chat is created
+        })
+        .finally(() => {
+          isCreatingChat.current = false;
+        });
     }
-  }, [chats, createChat, targetId]);
+  }, [chats, createChat, targetId, refetch]);
 
   useEffect(() => {
-    if (chats) {
-      setFetchChats(chats);
+    if (chatCreated && chats) {
+      setFetchChats(chats); // ✅ Set fetched chats after creation
     }
-  }, [chats, setFetchChats]);
+  }, [chatCreated, chats, setFetchChats]);
 
   if (isLoading) {
     return <div>Loading chats...</div>;
   }
 
-  return (
-    <>
-      <ChatBox isLoading={isLoading} />
-    </>
-  );
+  return <ChatBox chats={fetchChats} isLoading={isLoading} />;
 };
 
 export default ChatBoxPage;
