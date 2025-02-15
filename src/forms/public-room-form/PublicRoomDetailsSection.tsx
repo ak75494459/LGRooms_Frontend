@@ -67,6 +67,19 @@ const PublicRoomDetailsSection = () => {
           </FormItem>
         )}
       />
+      <FormField
+        control={control}
+        name="location"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Location</FormLabel>
+            <FormControl>
+              <Input {...field} className="bg-white" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </>
   );
 };

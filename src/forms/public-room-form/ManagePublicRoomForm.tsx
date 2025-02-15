@@ -11,6 +11,7 @@ const formSchema = z.object({
   rent: z.coerce.number().min(1, "Rent is required"),
   description: z.string().min(1, "Description is required"),
   imageUrl: z.array(z.string().min(1, "imageUrl is required")),
+  location: z.string().min(1, "Location is required"),
 });
 
 type publicRoomFormData = z.infer<typeof formSchema>;
@@ -27,6 +28,7 @@ const ManagePublicRoomForm = ({ onSave, isLoading }: Props) => {
       rent: 0, // Default rent value to prevent undefined
       description: "",
       imageUrl: [""],
+      location: "",
     },
   });
 
@@ -40,6 +42,7 @@ const ManagePublicRoomForm = ({ onSave, isLoading }: Props) => {
     formDataJson.imageUrl.forEach((imageUrl, index) => {
       formData.append(`imageUrl[${index}]`, imageUrl);
     });
+    formData.append("location", formDataJson.location);
 
     console.log("FormData Entries:", Object.fromEntries(formData.entries())); // Debugging
     onSave(formData);

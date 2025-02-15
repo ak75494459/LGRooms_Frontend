@@ -60,6 +60,9 @@ const PublicRoomContainer = ({ publicRoom }: Props) => {
       <div className="m-3 text-[1rem] p-3  font-bold">
         {publicRoom.description}
       </div>
+      <div className="m-3 text-[1rem] p-3  font-bold">
+        {publicRoom.location}
+      </div>
       <div className=" justify-end flex m-5">
         <div className="flex gap-3">
           <FacebookShareButton url={shareUrl}>
