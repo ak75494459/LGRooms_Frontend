@@ -31,16 +31,25 @@ const PublicRoomPage = () => {
 
   return (
     <>
-      <SearchBar
-        onSubmit={handleSearchSubmit}
-        placeHolder="Search by location"
-      />
-      <PublicRoomCard publicRooms={results?.data ?? []} isLoading={isLoading} />
-      <PaginationSelector
-        page={results?.pagination?.page ?? 1}  // ✅ Safe access with default value
-        pages={results?.pagination?.pages ?? 1} // ✅ Safe access with default value
-        onPageChange={setPage}
-      />
+      {!isLoading ? (
+        <>
+          <SearchBar
+            onSubmit={handleSearchSubmit}
+            placeHolder="Search by location"
+          />
+          <PublicRoomCard
+            publicRooms={results?.data ?? []}
+            isLoading={isLoading}
+          />
+          <PaginationSelector
+            page={results?.pagination?.page ?? 1} // ✅ Safe access with default value
+            pages={results?.pagination?.pages ?? 1} // ✅ Safe access with default value
+            onPageChange={setPage}
+          />
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   );
 };
