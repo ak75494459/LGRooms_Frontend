@@ -57,10 +57,8 @@ export const useCreatePublicRoom = () => {
 };
 
 export const useGetPublicRooms = (pageState?: PublicRoomPageState) => {
-  const { getAccessTokenSilently } = useAuth0();
-
   const getPublicRoomsRequest = async (): Promise<PublicRoomSearchResponse> => {
-    const accessToken = await getAccessTokenSilently(); // ✅ Await token retrieval
+    // ✅ Await token retrieval
 
     const params = new URLSearchParams();
     if (pageState?.page !== undefined) {
@@ -71,10 +69,6 @@ export const useGetPublicRooms = (pageState?: PublicRoomPageState) => {
       `${API_BASE_URL}/api/public/rooms?${params.toString()}`,
       {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
       }
     );
 
@@ -103,7 +97,6 @@ export const useGetPublicRooms = (pageState?: PublicRoomPageState) => {
     isLoading,
   };
 };
-
 
 export const useGetPublicRoom = () => {
   const { id } = useParams<{ id: string }>();
