@@ -1,4 +1,5 @@
-import { PublicRoom } from "@/types";
+import { PublicRoomPageState } from "@/pages/PublicRoomPage";
+import { PublicRoom, PublicRoomSearchResponse } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -55,40 +56,54 @@ export const useCreatePublicRoom = () => {
   return { createPublicRoom, isLoading, isSuccess, error };
 };
 
-export const useGetPublicRooms = () => {
+export const useGetPublicRooms = (pageState?: PublicRoomPageState) => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const getPublicRoomsRequest = async () => {
-    const accessToken = getAccessTokenSilently();
+  const getPublicRoomsRequest = async (): Promise<PublicRoomSearchResponse> => {
+    const accessToken = await getAccessTokenSilently(); // ✅ Await token retrieval
 
-    const response = await fetch(`${API_BASE_URL}/api/public/rooms`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch public room");
+    const params = new URLSearchParams();
+    if (pageState?.page !== undefined) {
+      params.set("page", pageState.page.toString());
     }
+
+    const response = await fetch(
+      `${API_BASE_URL}/api/public/rooms?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch public rooms");
+    }
+
     return response.json();
   };
 
   const {
-    data: publicRooms,
+    data: results = { data: [], pagination: { total: 0, page: 1, pages: 1 } }, // ✅ Default values
     isLoading,
     error,
-  } = useQuery("fetchPublicRooms", getPublicRoomsRequest);
+  } = useQuery(["fetchPublicRooms", pageState?.page], getPublicRoomsRequest, {
+    keepPreviousData: true, // ✅ Keeps previous data while loading new data
+    staleTime: 5000, // ✅ Data is considered fresh for 5 seconds
+  });
 
   if (error) {
     toast.error(error.toString());
   }
 
   return {
-    publicRooms,
+    results,
     isLoading,
   };
 };
+
 
 export const useGetPublicRoom = () => {
   const { id } = useParams<{ id: string }>();

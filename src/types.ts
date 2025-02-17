@@ -33,3 +33,12 @@ export type MessageType = {
   readBy: any;
   chat: any;
 };
+
+export type PublicRoomSearchResponse = {
+  data: PublicRoom[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+};

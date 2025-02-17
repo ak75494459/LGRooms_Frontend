@@ -12,6 +12,7 @@ import ManagePublicRoomPage from "./pages/ManagePublicRoomPage";
 import RoomDetailsPage from "./pages/RoomDetailsPage";
 import { useEffect } from "react";
 import { useGetMyUser, useUpdateIsChatSelected } from "./api/MyUserApi";
+import SearchPage from "./pages/SearchPage";
 
 const AppRoutes = () => {
   const { currentUser } = useGetMyUser();
@@ -27,6 +28,14 @@ const AppRoutes = () => {
         element={
           <Layout>
             <PublicRoomPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/search/:location"
+        element={
+          <Layout>
+            <SearchPage />
           </Layout>
         }
       />

@@ -238,7 +238,7 @@ const SingleChat = ({ url }: Props) => {
       )}
       <div className="mt-auto bg-gray-100 p-3">
         <Input
-          className="w-full bg-white"
+          className="w-fullbg-white"
           type="text"
           placeholder="Type your message and press Enter"
           value={newMessage}

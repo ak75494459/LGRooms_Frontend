@@ -61,7 +61,7 @@ const PublicRoomContainer = ({ publicRoom }: Props) => {
         {publicRoom.description}
       </div>
       <div className="m-3 text-[1rem] p-3  font-bold">
-        {publicRoom.location}
+        <span className="text-gray-600">Location:</span> {publicRoom.location}
       </div>
       <div className=" justify-end flex m-5">
         <div className="flex gap-3">

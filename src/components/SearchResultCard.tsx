@@ -1,17 +1,12 @@
 import { PublicRoom } from "@/types";
-import AspectRatioPublicImage from "./AspectRatioPublicImage";
 import { Link } from "react-router-dom";
+import AspectRatioPublicImage from "./AspectRatioPublicImage";
 
 type Props = {
   publicRooms: PublicRoom[];
-  isLoading: boolean;
 };
 
-const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
-  if (isLoading) {
-    return <div className="m-auto">Loading...</div>;
-  }
-
+const SearchResultCard = ({ publicRooms }: Props) => {
   return (
     <div className="flex flex-wrap">
       {publicRooms.map((room, index) => (
@@ -50,4 +45,4 @@ const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
   );
 };
 
-export default PublicRoomCard;
+export default SearchResultCard;
