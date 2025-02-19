@@ -5,6 +5,7 @@ import { useGetMyUser, useUpdateIsChatSelected } from "@/api/MyUserApi";
 import { MessageType } from "@/types";
 import { io } from "socket.io-client";
 import { ChatState } from "@/Context/ChatProvider";
+import { Link } from "react-router-dom";
 
 type Props = {
   url: string;
@@ -21,6 +22,7 @@ const SingleChat = ({ url }: Props) => {
   const { currentUser, currentLoading } = useGetMyUser();
   const { sendMessages } = useSendMessage();
   const [newMessage, setNewMessage] = useState(url);
+
   const [message, setMessage] = useState<MessageType[]>([]);
   const scrollEndRef = useRef<HTMLDivElement | null>(null);
   const { selectedChat, setNotification, setActiveChatId, activeChatId } =
@@ -181,7 +183,16 @@ const SingleChat = ({ url }: Props) => {
                 clear: "both",
               }}
             >
-              {m.content}
+              {m.content.includes(url) ? (
+                <Link
+                  to={url}
+                  style={{ color: "blue", textDecoration: "underline" }}
+                >
+                  {m.content}
+                </Link>
+              ) : (
+                m.content
+              )}
             </span>
           </div>
         ))}
