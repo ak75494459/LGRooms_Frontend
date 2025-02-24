@@ -13,11 +13,11 @@ const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center ">
+    <div className="flex flex-wrap justify-start">
       {publicRooms.map((room, index) => (
         <div
           key={index}
-          className="p-3 w-[30%] max-md:w-full flex shadow m-[3px] mt-[10px]"
+          className="p-3 w-[33.3%] max-md:w-full flex shadow m-[3px] mt-[10px]"
         >
           <div className="w-full">
             <div>
