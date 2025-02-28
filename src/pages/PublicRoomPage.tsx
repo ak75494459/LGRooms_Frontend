@@ -4,6 +4,7 @@ import PublicRoomCard from "@/components/PublicRoomCard";
 import SearchBar, { searchForm } from "@/components/SearchBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import videoSource1 from "../assets/videoSource1.mp4";
 
 export type PublicRoomPageState = {
   page: number;
@@ -33,14 +34,44 @@ const PublicRoomPage = () => {
     <>
       {!isLoading ? (
         <>
-          <SearchBar
-            onSubmit={handleSearchSubmit}
-            placeHolder="Search by location"
-          />
-          <PublicRoomCard
-            publicRooms={results?.data ?? []}
-            isLoading={isLoading}
-          />
+          {results.pagination.page === 1 ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full  object-cover h-[25rem] "
+            >
+              <source src={videoSource1} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : null}
+          {results.pagination.page !== 1 ? (
+            <div className="relative">
+              <SearchBar
+                onSubmit={handleSearchSubmit}
+                placeHolder="Search by location"
+              />
+            </div>
+          ) : (
+            <SearchBar
+              onSubmit={handleSearchSubmit}
+              placeHolder="Search by location"
+            />
+          )}
+          {results.pagination.page !== 1 ? (
+            <div className="mt-[8rem]">
+              <PublicRoomCard
+                publicRooms={results?.data ?? []}
+                isLoading={isLoading}
+              />
+            </div>
+          ) : (
+            <PublicRoomCard
+              publicRooms={results?.data ?? []}
+              isLoading={isLoading}
+            />
+          )}
           <PaginationSelector
             page={results?.pagination?.page ?? 1} // ✅ Safe access with default value
             pages={results?.pagination?.pages ?? 1} // ✅ Safe access with default value

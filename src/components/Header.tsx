@@ -8,7 +8,7 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         <Link
           to="/"
-          className="text-3xl max-sm:text-xl font-bold tracking-tight bg-gradient-to-r from-black via-gray-600 to-gray-500 bg-clip-text text-transparent transition-all duration-300 hover:from-gray-500 hover:via-gray-600 hover:to-black"
+          className="text-3xl max-sm:text-xl font-bold tracking-tight text-black hover:text-[#91999E]"
         >
           LawGateROOms
         </Link>

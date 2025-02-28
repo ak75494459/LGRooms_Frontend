@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import videoSource1 from "../assets/videoSource1.mp4";
+
 import { useCallback } from "react";
 
 const formSchema = z.object({
@@ -31,69 +31,54 @@ const SearchBar = ({ onSubmit, onReset, placeHolder }: Props) => {
   }, [onReset, form]);
 
   return (
-    <div className="relative h-full">
-      {/* Background Image */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="w-full  object-cover h-[25rem] "
-      >
-        <source src={videoSource1} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      {/* Search Bar */}
-      <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl">
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className={`flex items-center gap-3 justify-between border-2 rounded-full p-2 backdrop-blur-md bg-white/30 shadow-lg 
+    <div className="absolute top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className={`flex items-center gap-3 justify-between border-2 rounded-full p-2 backdrop-blur-md bg-white/30 shadow-lg 
               ${
                 form.formState.errors.searchQuery
                   ? "border-red-500"
                   : "border-gray-300"
               }`}
+        >
+          <Search
+            strokeWidth={2.5}
+            size={30}
+            className="text-black hidden md:block"
+          />
+          <FormField
+            control={form.control}
+            name="searchQuery"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormControl>
+                  <Input
+                    {...field}
+                    className="border-none shadow-none text-xl bg-transparent focus-visible:ring-0 placeholder-black"
+                    placeholder={placeHolder}
+                    aria-label="Search input"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button
+            onClick={handleReset}
+            type="button"
+            variant="outline"
+            className="rounded-full md:block hidden"
           >
-            <Search
-              strokeWidth={2.5}
-              size={30}
-              className="text-black hidden md:block"
-            />
-            <FormField
-              control={form.control}
-              name="searchQuery"
-              render={({ field }) => (
-                <FormItem className="flex-1">
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="border-none shadow-none text-xl bg-transparent focus-visible:ring-0 placeholder-black"
-                      placeholder={placeHolder}
-                      aria-label="Search input"
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <Button
-              onClick={handleReset}
-              type="button"
-              variant="outline"
-              className="rounded-full md:block hidden"
-            >
-              Reset
-            </Button>
-            <Button
-              type="submit"
-              className="rounded-full bg-white text-black hover:bg-black hover:text-white transition"
-            >
-              Search
-            </Button>
-          </form>
-        </Form>
-      </div>
+            Reset
+          </Button>
+          <Button
+            type="submit"
+            className="rounded-full bg-white text-black hover:bg-black hover:text-white transition"
+          >
+            Search
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };
