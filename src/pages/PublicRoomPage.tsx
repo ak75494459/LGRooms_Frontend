@@ -4,7 +4,7 @@ import PublicRoomCard from "@/components/PublicRoomCard";
 import SearchBar, { searchForm } from "@/components/SearchBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import videoSource1 from "../assets/videoSource1.mp4";
+import videoSource1 from "../assets/videoSource1_compressed.mp4";
 
 export type PublicRoomPageState = {
   page: number;
