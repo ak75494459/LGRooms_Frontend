@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-// import videoSource from "../assets/videoSource1.mp4";
+import videoSource1 from "../assets/videoSource1.mp4";
 import { useCallback } from "react";
 
 const formSchema = z.object({
@@ -33,16 +33,16 @@ const SearchBar = ({ onSubmit, onReset, placeHolder }: Props) => {
   return (
     <div className="relative h-full">
       {/* Background Image */}
-      {/* <video
+      <video
         autoPlay
         loop
         muted
         playsInline
         className="w-full  object-cover h-[25rem] "
       >
-        <source src={videoSource} type="video/mp4" />
+        <source src={videoSource1} type="video/mp4" />
         Your browser does not support the video tag.
-      </video> */}
+      </video>
 
       {/* Search Bar */}
       <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl">
