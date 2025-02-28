@@ -17,7 +17,7 @@ const AspectRatioPublicImage = ({ imageUrl }: Props) => {
     );
   };
   return (
-    <div className="p-3 bg-[#F5D790]">
+    <div className="p-3 bg-gray-100">
       {/* Image Display */}
       <div className="relative">
         <AspectRatio ratio={16 / 9}>
@@ -30,13 +30,13 @@ const AspectRatioPublicImage = ({ imageUrl }: Props) => {
         {/* Navigation Buttons */}
         <button
           onClick={handlePrev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+          className="absolute  left-2 top-1/2 -translate-y-1/2  text-black "
         >
           ◀
         </button>
         <button
           onClick={handleNext}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+          className="absolute right-2 top-1/2 -translate-y-1/2  text-black "
         >
           ▶
         </button>

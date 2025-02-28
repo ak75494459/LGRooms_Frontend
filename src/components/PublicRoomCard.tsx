@@ -13,18 +13,18 @@ const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
   }
 
   return (
-    <div className="flex flex-wrap justify-start">
+    <div className="flex flex-wrap justify-center  relative  rounded">
       {publicRooms.map((room, index) => (
         <div
           key={index}
-          className="p-3 w-[33.3%] max-md:w-full flex shadow m-[3px] mt-[10px]"
+          className="p-3 w-[32%] flex   max-md:w-full flex shadow m-[3px] mt-[10px] rounded z-3"
         >
-          <div className="w-full">
+          <div className="w-full ">
             <div>
               <AspectRatioPublicImage imageUrl={room.imageUrl} />
             </div>
             <Link to={`/publicroom/${room._id}`}>
-              <div className="p-3 space-y-3">
+              <div className="p-3 space-y-3 ">
                 <div className="w-full h-full bg-white rounded p-5 space-y-2 text-cover">
                   <h1 className="font-bold bg-gray-50 p-2 rounded">
                     Rent:{" "}
