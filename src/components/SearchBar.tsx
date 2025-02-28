@@ -18,9 +18,10 @@ type Props = {
   onSubmit: (formData: searchForm) => void;
   placeHolder: string;
   onReset?: () => void;
+  page: number;
 };
 
-const SearchBar = ({ onSubmit, onReset, placeHolder }: Props) => {
+const SearchBar = ({ onSubmit, onReset, placeHolder, page }: Props) => {
   const form = useForm<searchForm>({
     resolver: zodResolver(formSchema),
   });
@@ -31,7 +32,11 @@ const SearchBar = ({ onSubmit, onReset, placeHolder }: Props) => {
   }, [onReset, form]);
 
   return (
-    <div className="relative bottom-[20rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl z-100">
+    <div
+      className={`relative ${
+        page === 1 ? "bottom-[20rem]" : "bottom-0"
+      } left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl z-100`}
+    >
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

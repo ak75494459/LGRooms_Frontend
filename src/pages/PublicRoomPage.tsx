@@ -46,19 +46,13 @@ const PublicRoomPage = () => {
               Your browser does not support the video tag.
             </video>
           ) : null}
-          {results.pagination.page !== 1 ? (
-            <div className="relative">
-              <SearchBar
-                onSubmit={handleSearchSubmit}
-                placeHolder="Search by location"
-              />
-            </div>
-          ) : (
-            <SearchBar
-              onSubmit={handleSearchSubmit}
-              placeHolder="Search by location"
-            />
-          )}
+
+          <SearchBar
+            onSubmit={handleSearchSubmit}
+            placeHolder="Search by location"
+            page={results.pagination.page}
+          />
+
           {results.pagination.page !== 1 ? (
             <div className="mt-[8rem]">
               <PublicRoomCard
