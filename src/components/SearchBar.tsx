@@ -31,7 +31,7 @@ const SearchBar = ({ onSubmit, onReset, placeHolder }: Props) => {
   }, [onReset, form]);
 
   return (
-    <div className="absolute top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl">
+    <div className="absolute top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl z-100">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
