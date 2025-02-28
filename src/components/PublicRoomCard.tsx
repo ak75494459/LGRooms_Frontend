@@ -13,7 +13,7 @@ const PublicRoomCard = ({ publicRooms, isLoading }: Props) => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center  relative  rounded bottom-[5rem]">
+    <div className="flex flex-wrap justify-center  relative  rounded bottom-[8rem]">
       {publicRooms.map((room, index) => (
         <div
           key={index}
