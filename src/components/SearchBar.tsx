@@ -34,7 +34,7 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, page }: Props) => {
   return (
     <div
       className={`relative ${
-        page === 1 ? "bottom-[20rem]" : "bottom-0"
+        page === 1 ? "bottom-[22rem]" : "bottom-0"
       } left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl z-100`}
     >
       <Form {...form}>

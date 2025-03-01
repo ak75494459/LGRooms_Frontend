@@ -4,7 +4,7 @@ import PublicRoomCard from "@/components/PublicRoomCard";
 import SearchBar, { searchForm } from "@/components/SearchBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import videoSource1 from "../assets/videoSource1_compressed2.webm";
+import img from "../assets/landing 2.webp";
 
 export type PublicRoomPageState = {
   page: number;
@@ -35,17 +35,7 @@ const PublicRoomPage = () => {
       {!isLoading ? (
         <>
           {results.pagination.page === 1 ? (
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full object-cover h-[25rem]"
-              poster="thumbnail.jpg" // ✅ This helps delay video loading
-            >
-              <source src={videoSource1} type="video/webm" />
-              Your browser does not support the video tag.
-            </video>
+            <img src={img} alt="notshowing" className="h-[25rem] w-full" />
           ) : null}
 
           <SearchBar
