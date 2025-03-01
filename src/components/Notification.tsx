@@ -54,9 +54,12 @@ const Notification = () => {
       <HoverCard>
         <HoverCardTrigger>
           {notifications.length > 0 && (
-            <span className="bg-red-300 relative bottom-3 left-8 rounded-xl p-1 text-[10px]">
+            <>
+            <span className=" relative bottom-2 left-12 inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75 animate-ping"></span>
+            <span className="bg-red-300  relative bottom-3 left-8 rounded-xl p-1 text-[10px]">
               {notifications.length}
             </span>
+            </>
           )}
           <svg
             xmlns="http://www.w3.org/2000/svg"

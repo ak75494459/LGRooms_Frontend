@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/hover-card";
 import { useClearNotification } from "@/api/NotificationApi";
 import { useGetMyUser, useUpdateIsChatSelected } from "@/api/MyUserApi";
+import video1 from "../assets/video1.mp4";
 
 type Props = {
   isLoading: boolean;
@@ -126,6 +127,12 @@ const ChatBox = ({ isLoading, chats }: Props) => {
           </Button>
         ))}
       </div>
+      {!selectedChat ? (
+        <video autoPlay loop muted playsInline className="w-[20rem] h-[30rem] rounded m-auto">
+          <source src={video1} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : null}
       {selectedChat ? <SingleChat url={url} /> : null}
     </>
   );

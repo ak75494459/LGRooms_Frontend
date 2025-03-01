@@ -4,7 +4,7 @@ import PublicRoomCard from "@/components/PublicRoomCard";
 import SearchBar, { searchForm } from "@/components/SearchBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import img from "../assets/landing 2.webp";
+import video from "../assets/video.mp4";
 
 export type PublicRoomPageState = {
   page: number;
@@ -35,7 +35,18 @@ const PublicRoomPage = () => {
       {!isLoading ? (
         <>
           {results.pagination.page === 1 ? (
-            <img src={img} alt="notshowing" className="h-[25rem] w-full" />
+            <div className="h-[25rem] w-full bg-gradient-to-r from-stone-900 via-gray-500 to-brown-300 border flex items-center  rounded  justify-center">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-[20rem] rounded "
+              >
+                <source src={video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
           ) : null}
 
           <SearchBar
