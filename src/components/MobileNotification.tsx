@@ -82,7 +82,14 @@ const MobileNotification = () => {
         {notifications.length > 0 && (
           <DropdownMenuContent className="w-[300px] max-w-xs bg-white shadow-lg rounded-lg p-2 max-h-60 overflow-y-auto">
             {isLoading && <div>Loading...</div>}
-
+            {notifications.length > 0 && (
+              <div
+                className="underline font-bold flex justify-end cursor-pointer text-sm p-2"
+                onClick={() => handleClearNotification()}
+              >
+                Clear
+              </div>
+            )}
             {notifications.map((notification: any, index: number) => (
               <Link
                 to="/chat"
@@ -98,15 +105,6 @@ const MobileNotification = () => {
                 </span>
               </Link>
             ))}
-
-            {notifications.length > 0 && (
-              <div
-                className="underline font-bold flex justify-end cursor-pointer text-sm p-2"
-                onClick={() => handleClearNotification()}
-              >
-                Clear
-              </div>
-            )}
           </DropdownMenuContent>
         )}
       </DropdownMenu>

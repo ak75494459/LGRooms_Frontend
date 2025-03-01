@@ -77,6 +77,14 @@ const Notification = () => {
         {notifications.length > 0 && (
           <HoverCardContent className="ml-2 max-sm:mr-6 cursor-pointer overflow-y-scroll h-[20rem]">
             {isLoading && <div>Loading...</div>}
+            {notifications.length > 0 && (
+              <div
+                className="underline font-bold flex justify-end cursor-pointer"
+                onClick={() => handleClearNotification()}
+              >
+                Clear
+              </div>
+            )}
 
             {notifications.map((notification: any, index: number) => (
               <Link
@@ -89,14 +97,6 @@ const Notification = () => {
                 {notification.message?.content || "No message content"}
               </Link>
             ))}
-            {notifications.length > 0 && (
-              <div
-                className="underline font-bold flex justify-end cursor-pointer"
-                onClick={() => handleClearNotification()}
-              >
-                Clear
-              </div>
-            )}
           </HoverCardContent>
         )}
       </HoverCard>

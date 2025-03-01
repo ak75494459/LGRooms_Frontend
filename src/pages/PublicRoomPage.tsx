@@ -4,7 +4,7 @@ import PublicRoomCard from "@/components/PublicRoomCard";
 import SearchBar, { searchForm } from "@/components/SearchBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import videoSource1 from "../assets/videoSource1_compressed.mp4";
+import videoSource1 from "../assets/videoSource1_compressed2.webm";
 
 export type PublicRoomPageState = {
   page: number;
@@ -42,7 +42,7 @@ const PublicRoomPage = () => {
               playsInline
               className="w-full  object-cover h-[25rem] "
             >
-              <source src={videoSource1} type="video/mp4" />
+              <source src={videoSource1} type="video/webm" />
               Your browser does not support the video tag.
             </video>
           ) : null}
