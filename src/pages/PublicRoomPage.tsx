@@ -40,7 +40,7 @@ const PublicRoomPage = () => {
               <div className="max-md:hidden ml-1   animate-bounce  ">
                 <img src={shift} alt="" className="m-auto" />
                 <h1
-                  className="font-bold bg-gradient-to-r from-black to-gray-500 bg-clip-text text-xl font-extrabold text-transparent"
+                  className="font-bold color-black text-xl font-extrabold "
                   style={{
                     animation: "textMove 4s infinite alternate",
                   }}
@@ -64,7 +64,7 @@ const PublicRoomPage = () => {
               <div className="max-md:hidden mr-1  animate-bounce  ">
                 <img src={clean} alt="" className="m-auto" />
                 <h1
-                  className="font-bold bg-gradient-to-r from-black to-gray-500 bg-clip-text text-lg font-extrabold text-transparent"
+                  className="font-bold color-black text-xl font-extrabold "
                   style={{
                     animation: "textMove 4s infinite alternate",
                   }}
