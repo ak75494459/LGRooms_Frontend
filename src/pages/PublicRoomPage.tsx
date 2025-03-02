@@ -27,17 +27,6 @@ const PublicRoomPage = () => {
     <>
       {!isLoading ? (
         <>
-          <div className="flex flex-row">
-            <div
-              className="absolute w-[20rem] z-50 top-[6rem] font-bold"
-              style={{
-                animation: "cartMove 20s linear infinite",
-                whiteSpace: "nowrap", // Prevents text from breaking lines
-              }}
-            >
-              We will help in shifting
-            </div>
-          </div>
           {results?.pagination?.page === 1 && (
             <div
               className="h-[25rem] w-full border flex items-center justify-center p-4 
