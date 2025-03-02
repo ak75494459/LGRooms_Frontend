@@ -5,6 +5,8 @@ import SearchBar, { searchForm } from "@/components/SearchBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import video from "../assets/video.mp4";
+import shift from "../assets/shift.png";
+import clean from "../assets/clean.png";
 
 export type PublicRoomPageState = {
   page: number;
@@ -29,13 +31,23 @@ const PublicRoomPage = () => {
         <>
           {results?.pagination?.page === 1 && (
             <div
-              className="h-[25rem] w-full border flex items-center justify-center p-4 
-                       animate-[bgChange_6s_infinite_alternate] rounded-[1rem] relative"
-              style={{ animation: "bgChange 4s infinite alternate" }}
+              className="h-[25rem] w-full border flex items-center justify-between  max-md:justify-center p-4 
+                     rounded-[1rem] relative"
+              style={{
+                animation: "bgChange 6s ease-in-out infinite alternate",
+              }}
             >
-              {/* Floating Image */}
-
-              {/* Centered Video */}
+              <div className="max-md:hidden ml-1   animate-bounce  ">
+                <img src={shift} alt="" className="m-auto" />
+                <h1
+                  className="font-bold bg-gradient-to-r from-black to-gray-500 bg-clip-text text-xl font-extrabold text-transparent"
+                  style={{
+                    animation: "textMove 4s infinite alternate",
+                  }}
+                >
+                  We help in shifting
+                </h1>
+              </div>
               <video
                 autoPlay
                 loop
@@ -49,6 +61,17 @@ const PublicRoomPage = () => {
                 <source src={video} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              <div className="max-md:hidden mr-1  animate-bounce  ">
+                <img src={clean} alt="" className="m-auto" />
+                <h1
+                  className="font-bold bg-gradient-to-r from-black to-gray-500 bg-clip-text text-lg font-extrabold text-transparent"
+                  style={{
+                    animation: "textMove 4s infinite alternate",
+                  }}
+                >
+                  Clean Enviornment
+                </h1>
+              </div>
             </div>
           )}
 
@@ -85,19 +108,18 @@ const PublicRoomPage = () => {
 
   0% { background-image: linear-gradient(to right, #ff9966, #ff5e62); } /* Vibrant */
 
-  100% { background-image: linear-gradient(to right, #e0c3fc, #8ec5fc); } /* Soft */
+  100% { background-image: linear-gradient(to right, #ff5e62, #ff9966); } /* Soft */
 }
 
 
-    @keyframes videoMove {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.5); }
-      100% { transform: scale(1); }
-    }
-   @keyframes cartMove {
-  0% { transform: translateX(-100%); } /* Start off-screen */
-  100% { transform: translateX(98vw); } /* Move fully to the right */
-}
+  
+  
+
+
+
+
+
+
   `}
       </style>
     </>
