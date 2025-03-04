@@ -53,10 +53,9 @@ const PublicRoomPage = () => {
                 loop
                 muted
                 playsInline
+                preload="metadata"
+                poster="path_to_thumbnail.jpg"
                 className="max-w-[20rem] w-full rounded-lg transition-all duration-300 z-50"
-                style={{
-                  animation: "videoMove 4s ease-out 1 forwards",
-                }}
               >
                 <source src={video} type="video/mp4" />
                 Your browser does not support the video tag.
