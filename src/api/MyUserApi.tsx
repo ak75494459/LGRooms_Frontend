@@ -25,15 +25,10 @@ export const useGetMyUser = () => {
     return response.json();
   };
 
-  const {
-    data: currentUser,
-    isLoading: currentLoading,
-    error,
-  } = useQuery("fetchCurrentUser", getMyUserRequest);
-
-  if (error) {
-    toast.error(error.toString());
-  }
+  const { data: currentUser, isLoading: currentLoading } = useQuery(
+    "fetchCurrentUser",
+    getMyUserRequest
+  );
 
   return { currentUser, currentLoading };
 };
