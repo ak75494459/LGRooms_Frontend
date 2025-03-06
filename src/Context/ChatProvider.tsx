@@ -55,8 +55,8 @@ const ChatProvider = ({ children }: Props) => {
     const handleDisconnect = () => {
       console.log("User is disconnecting...");
       socket.emit("user_disconnected", currentUser?._id);
-      socket.disconnect();
       isChatSelected(false); // Update state/API before closing
+      socket.disconnect();
     };
 
     window.addEventListener("beforeunload", handleDisconnect);

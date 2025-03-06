@@ -48,8 +48,8 @@ const SingleChat = ({ url }: Props) => {
     const handleDisconnect = () => {
       console.log("User is disconnecting...");
       socket.emit("user_disconnected", currentUser?._id);
+      isChatSelected(false);
       socket.disconnect();
-      isChatSelected(false); // Update state/API before closing
     };
 
     window.addEventListener("beforeunload", handleDisconnect);
