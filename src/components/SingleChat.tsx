@@ -1,5 +1,6 @@
 import { Input } from "./ui/input";
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import { useAllMessages, useSendMessage } from "@/api/MessageApi";
 import { useGetMyUser, useUpdateIsChatSelected } from "@/api/MyUserApi";
 import { MessageType } from "@/types";
@@ -20,6 +21,9 @@ const socket = io(API_BASE_URL, {
 const SingleChat = ({ url }: Props) => {
   const { currentUser, currentLoading } = useGetMyUser();
   const { sendMessages } = useSendMessage();
+  const { isChatSelected } = useUpdateIsChatSelected();
+  const location = useLocation(); // Get current page route
+
   const [newMessage, setNewMessage] = useState(
     url ? `I want to know about this room 🙂 : ${url}` : ""
   );
@@ -32,7 +36,6 @@ const SingleChat = ({ url }: Props) => {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [socketConnected, setSocketConnected] = useState(false);
-  const { isChatSelected } = useUpdateIsChatSelected();
 
   useEffect(() => {
     if (!currentUser) return;
@@ -44,20 +47,22 @@ const SingleChat = ({ url }: Props) => {
       socket.off("connected");
     };
   }, [currentUser]);
+
+  // Handle user navigating away from the page
   useEffect(() => {
-    const handleDisconnect = () => {
-      console.log("User is disconnecting...");
-      socket.emit("user_disconnected", currentUser?._id);
-      isChatSelected(false);
-      socket.disconnect();
-    };
-
-    window.addEventListener("beforeunload", handleDisconnect);
-
     return () => {
-      window.removeEventListener("beforeunload", handleDisconnect);
+      console.log("User navigated away, setting isChatSelected to false");
+      isChatSelected(false);
     };
-  }, [currentUser]);
+  }, [location]); // Runs when the URL path changes
+
+  useEffect(() => {
+    if (location.pathname === "/chat" && selectedChat?._id) {
+      isChatSelected(true);
+    } else {
+      isChatSelected(false);
+    }
+  }, [location.pathname, selectedChat]);
 
   useEffect(() => {
     socket.on("typing", () => setIsTyping(true));
@@ -69,6 +74,7 @@ const SingleChat = ({ url }: Props) => {
       socket.emit("join chat", selectedChat._id);
     }
   }, [selectedChat]);
+
   useEffect(() => {
     if (selectedChat?._id) {
       setActiveChatId(selectedChat._id);
@@ -236,12 +242,9 @@ const SingleChat = ({ url }: Props) => {
             />
           </circle>
         </svg>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <div className="mt-auto bg-gray-100 p-3">
         <Input
-          className="w-fullbg-white"
           type="text"
           placeholder="Type your message and press Enter"
           value={newMessage}

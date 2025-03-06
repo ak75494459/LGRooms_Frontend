@@ -9,7 +9,7 @@ import {
 } from "react";
 import { io } from "socket.io-client";
 
-import { useGetMyUser, useUpdateIsChatSelected } from "@/api/MyUserApi";
+import { useGetMyUser } from "@/api/MyUserApi";
 
 type Props = {
   children: React.ReactNode;
@@ -43,27 +43,11 @@ const ChatProvider = ({ children }: Props) => {
   const [selectedChat, setSelectedChat] = useState<any>(null);
   const [activeChatId, setActiveChatId] = useState<any>("");
   const [fetchChats, setFetchChats] = useState<any[]>([]);
-  const { isChatSelected } = useUpdateIsChatSelected();
 
   useEffect(() => {
     if (currentUser) {
       socket.emit("setup", currentUser);
     }
-  }, [currentUser]);
-
-  useEffect(() => {
-    const handleDisconnect = () => {
-      console.log("User is disconnecting...");
-      socket.emit("user_disconnected", currentUser?._id);
-      isChatSelected(false); // Update state/API before closing
-      socket.disconnect();
-    };
-
-    window.addEventListener("beforeunload", handleDisconnect);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleDisconnect);
-    };
   }, [currentUser]);
 
   return (
