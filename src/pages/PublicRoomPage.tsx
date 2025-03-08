@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import video from "../assets/video.mp4";
 import shift from "../assets/shift.png";
 import clean from "../assets/clean.png";
-import board from "../assets/board.png";
 
 export type PublicRoomPageState = {
   page: number;
@@ -53,27 +52,18 @@ const PublicRoomPage = () => {
                 </h1>
               </div>
 
-              <div className="relative w-full max-w-[21rem]">
-                {/* Board Image (Outer) */}
-                <img src={board} className="w-full" alt="Board Background" />
-
-                {/* Video Inside the Board */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    poster="path_to_thumbnail.jpg"
-                    className="w-full rounded-lg transition-all duration-300 z-50"
-                  >
-                    <source src={video} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                poster="path_to_thumbnail.jpg"
+                className="max-w-[20rem] w-full rounded-lg transition-all duration-300 z-50"
+              >
+                <source src={video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
               <div className="max-md:hidden mr-1    ">
                 <img src={clean} alt="" className="m-auto animate-bounce" />
                 <h1
