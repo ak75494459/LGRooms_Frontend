@@ -38,11 +38,11 @@ const AspectRatioPublicImage = ({ imageUrl }: Props) => {
     <div className="p-3 bg-gray-100">
       {/* Image Display */}
       <div className="relative">
-        <AspectRatio ratio={16 / 9}>
+        <AspectRatio ratio={16 / 9} >
           <img
             src={imageUrl[currentIndex]}
             alt={`Image ${currentIndex + 1}`}
-            className="rounded-md object-cover h-full w-full"
+            className="rounded-md object-cover h-full w-full "
           />
         </AspectRatio>
 

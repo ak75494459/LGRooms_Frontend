@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import video from "../assets/video.mp4";
 import shift from "../assets/shift.png";
 import clean from "../assets/clean.png";
+import board from "../assets/board.png";
 
 export type PublicRoomPageState = {
   page: number;
@@ -32,36 +33,49 @@ const PublicRoomPage = () => {
           {results?.pagination?.page === 1 && (
             <div
               className="h-[25rem] w-full border flex items-center justify-between  max-md:justify-center p-4 
-                     rounded-[1rem] relative"
+                     rounded-[1rem] relative "
               style={{
                 animation: "bgChange 6s ease-in-out infinite alternate",
               }}
             >
-              <div className="max-md:hidden ml-1   animate-bounce  ">
-                <img src={shift} alt="" className="m-auto" />
-                <h1
-                  className="font-bold color-black text-xl font-extrabold "
-                  style={{
-                    animation: "textMove 4s infinite alternate",
-                  }}
-                >
+              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute top-0 left-0 m-2"></div>
+              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute bottom-0 left-0 m-2"></div>
+              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute top-0 right-0 m-2"></div>
+              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute bottom-0 right-0 m-2"></div>
+              <div className="hidden md:block ml-1">
+                <img
+                  src={shift}
+                  alt="Shifting Help"
+                  className="mx-auto animate-bounce"
+                />
+                <h1 className="text-black text-xl font-extrabold animate-textMove">
                   We help in shifting
                 </h1>
               </div>
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                poster="path_to_thumbnail.jpg"
-                className="max-w-[20rem] w-full rounded-lg transition-all duration-300 z-50"
-              >
-                <source src={video} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div className="max-md:hidden mr-1  animate-bounce  ">
-                <img src={clean} alt="" className="m-auto" />
+
+              <div className="relative w-full max-w-[21rem]">
+                {/* Board Image (Outer) */}
+                <img src={board} className="w-full" alt="Board Background" />
+
+                {/* Video Inside the Board */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%]">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    poster="path_to_thumbnail.jpg"
+                    className="w-full rounded-lg transition-all duration-300 z-50"
+                  >
+                    <source src={video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+
+              <div className="max-md:hidden mr-1    ">
+                <img src={clean} alt="" className="m-auto animate-bounce" />
                 <h1
                   className="font-bold color-black text-xl font-extrabold "
                   style={{
@@ -97,7 +111,7 @@ const PublicRoomPage = () => {
           />
         </>
       ) : (
-        <div>Loading...</div>
+        <div>Waiting...</div>
       )}
 
       {/* Background Animation Keyframes */}
@@ -109,15 +123,6 @@ const PublicRoomPage = () => {
 
   100% { background-image: linear-gradient(to right, #ff5e62, #ff9966); } /* Soft */
 }
-
-
-  
-  
-
-
-
-
-
 
   `}
       </style>
