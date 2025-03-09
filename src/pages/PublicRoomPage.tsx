@@ -101,7 +101,7 @@ const PublicRoomPage = () => {
           />
         </>
       ) : (
-        <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-white bg-opacity-75 z-50 bg-black">
+        <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-white bg-opacity-100 z-50 bg-black">
           <div className="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-purple-500"></div>
           <div className="font-bold text-[13px] text-purple-700 p-2">
             LawGateRooms
