@@ -2,7 +2,7 @@ import { useGetPublicRooms } from "@/api/PublicRoomApi";
 import PaginationSelector from "@/components/PaginationSelector";
 import PublicRoomCard from "@/components/PublicRoomCard";
 import SearchBar, { searchForm } from "@/components/SearchBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import video from "../assets/video.mp4";
 import shift from "../assets/shift.png";
@@ -12,10 +12,63 @@ export type PublicRoomPageState = {
   page: number;
 };
 
+const HeroSection = () => {
+  return (
+    <div className="hero-section">
+      {/* Floating Blur Elements */}
+      {["top-0 left-0", "bottom-0 left-0", "top-0 right-0", "bottom-0 right-0"].map((pos, index) => (
+        <div key={index} className={`floating-blur ${pos} m-2`} />
+      ))}
+
+      {/* Left Section */}
+      <div className="hidden md:block ml-1">
+        <img src={shift} alt="Shifting Help" className="mx-auto animate-bounce" />
+        <h1 className="text-black text-xl font-extrabold animate-textMove">We help in shifting</h1>
+      </div>
+
+      {/* Video Section */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className="video-container"
+      >
+        <source src={video} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Right Section */}
+      <div className="hidden md:block mr-1">
+        <img src={clean} alt="Clean Environment" className="m-auto animate-bounce" />
+        <h1 className="font-bold text-black text-xl font-extrabold animate-textMove">
+          Clean Environment
+        </h1>
+      </div>
+    </div>
+  );
+};
+
 const PublicRoomPage = () => {
   const [pageState, setPageState] = useState<PublicRoomPageState>({ page: 1 });
   const { results, isLoading } = useGetPublicRooms(pageState);
   const navigate = useNavigate();
+
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  useEffect(() => {
+    if (isLoading) {
+      setLoadingProgress(0);
+      const interval = setInterval(() => {
+        setLoadingProgress((prev) => Math.min(prev + Math.random() * 10, 90));
+      }, 300);
+
+      return () => clearInterval(interval);
+    } else {
+      setLoadingProgress(100);
+    }
+  }, [isLoading]);
 
   const handleSearchSubmit = (searchFormValues: searchForm) => {
     navigate({ pathname: `/search/${searchFormValues.searchQuery}` });
@@ -29,54 +82,7 @@ const PublicRoomPage = () => {
     <>
       {!isLoading ? (
         <>
-          {results?.pagination?.page === 1 && (
-            <div
-              className="h-[25rem] w-full border flex items-center justify-between  max-md:justify-center p-4 
-                     rounded-[1rem] relative "
-              style={{
-                animation: "bgChange 6s ease-in-out infinite alternate",
-              }}
-            >
-              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute top-0 left-0 m-2"></div>
-              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute bottom-0 left-0 m-2"></div>
-              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute top-0 right-0 m-2"></div>
-              <div className="w-[5rem] backdrop-blur-sm rounded-[20rem] bg-white/10 h-[20%] absolute bottom-0 right-0 m-2"></div>
-              <div className="hidden md:block ml-1">
-                <img
-                  src={shift}
-                  alt="Shifting Help"
-                  className="mx-auto animate-bounce"
-                />
-                <h1 className="text-black text-xl font-extrabold animate-textMove">
-                  We help in shifting
-                </h1>
-              </div>
-
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                poster="path_to_thumbnail.jpg"
-                className="max-w-[20rem] w-full rounded-lg transition-all duration-300 z-50"
-              >
-                <source src={video} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div className="max-md:hidden mr-1    ">
-                <img src={clean} alt="" className="m-auto animate-bounce" />
-                <h1
-                  className="font-bold color-black text-xl font-extrabold "
-                  style={{
-                    animation: "textMove 4s infinite alternate",
-                  }}
-                >
-                  Clean Enviornment
-                </h1>
-              </div>
-            </div>
-          )}
+          {results?.pagination?.page === 1 && <HeroSection />}
 
           {/* Search Bar */}
           <SearchBar
@@ -87,10 +93,7 @@ const PublicRoomPage = () => {
 
           {/* Public Rooms List */}
           <div className={results?.pagination?.page !== 1 ? "mt-[8rem]" : ""}>
-            <PublicRoomCard
-              publicRooms={results?.data ?? []}
-              isLoading={isLoading}
-            />
+            <PublicRoomCard publicRooms={results?.data ?? []} isLoading={isLoading} />
           </div>
 
           {/* Pagination */}
@@ -101,26 +104,13 @@ const PublicRoomPage = () => {
           />
         </>
       ) : (
-        <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-white bg-opacity-100 z-50 bg-black">
-          <div className="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-purple-500"></div>
-          <div className="font-bold text-[13px] text-purple-700 p-2">
-            LawGateRooms
+        <div className="loading-screen">
+          <div className="font-bold text-xl text-purple-700 p-2">LawGateRooms</div>
+          <div className="progress-bar-container">
+            <div className="progress-bar" style={{ width: `${loadingProgress}%` }}></div>
           </div>
         </div>
       )}
-
-      {/* Background Animation Keyframes */}
-      <style>
-        {`
-   @keyframes bgChange {
-
-  0% { background-image: linear-gradient(to right, #ff9966, #ff5e62); } /* Vibrant */
-
-  100% { background-image: linear-gradient(to right, #ff5e62, #ff9966); } /* Soft */
-}
-
-  `}
-      </style>
     </>
   );
 };

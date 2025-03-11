@@ -74,3 +74,92 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hero Section Styles */
+.hero-section {
+  height: 25rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: linear-gradient(to right, #ff9966, #ff5e62);
+  animation: bgChange 6s ease-in-out infinite alternate;
+  position: relative;
+}
+
+@keyframes bgChange {
+  0% {
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+  }
+  100% {
+    background: linear-gradient(to right, #ff5e62, #ff9966);
+  }
+}
+
+/* Floating Blur Elements */
+.floating-blur {
+  width: 5rem;
+  height: 20%;
+  border-radius: 20rem;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  backdrop-filter: blur(8px); /* Fix for backdrop-blur-sm */
+}
+
+/* Video Container */
+.video-container {
+  max-width: 20rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  z-index: 50;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 50;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  width: 16rem;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  height: 0.5rem;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: #3b82f6;
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Text Animations */
+@keyframes textMove {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-textMove {
+  animation: textMove 4s infinite alternate;
+}
