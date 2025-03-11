@@ -14,16 +14,27 @@ export type PublicRoomPageState = {
 
 const HeroSection = () => {
   return (
-    <div className="hero-section">
+    <div className="hero-section max-md:justify-center">
       {/* Floating Blur Elements */}
-      {["top-0 left-0", "bottom-0 left-0", "top-0 right-0", "bottom-0 right-0"].map((pos, index) => (
+      {[
+        "top-0 left-0",
+        "bottom-0 left-0",
+        "top-0 right-0",
+        "bottom-0 right-0",
+      ].map((pos, index) => (
         <div key={index} className={`floating-blur ${pos} m-2`} />
       ))}
 
       {/* Left Section */}
       <div className="hidden md:block ml-1">
-        <img src={shift} alt="Shifting Help" className="mx-auto animate-bounce" />
-        <h1 className="text-black text-xl font-extrabold animate-textMove">We help in shifting</h1>
+        <img
+          src={shift}
+          alt="Shifting Help"
+          className="mx-auto animate-bounce"
+        />
+        <h1 className="text-black text-xl font-extrabold animate-textMove">
+          We help in shifting
+        </h1>
       </div>
 
       {/* Video Section */}
@@ -41,7 +52,11 @@ const HeroSection = () => {
 
       {/* Right Section */}
       <div className="hidden md:block mr-1">
-        <img src={clean} alt="Clean Environment" className="m-auto animate-bounce" />
+        <img
+          src={clean}
+          alt="Clean Environment"
+          className="m-auto animate-bounce"
+        />
         <h1 className="font-bold text-black text-xl font-extrabold animate-textMove">
           Clean Environment
         </h1>
@@ -93,7 +108,10 @@ const PublicRoomPage = () => {
 
           {/* Public Rooms List */}
           <div className={results?.pagination?.page !== 1 ? "mt-[8rem]" : ""}>
-            <PublicRoomCard publicRooms={results?.data ?? []} isLoading={isLoading} />
+            <PublicRoomCard
+              publicRooms={results?.data ?? []}
+              isLoading={isLoading}
+            />
           </div>
 
           {/* Pagination */}
@@ -105,9 +123,14 @@ const PublicRoomPage = () => {
         </>
       ) : (
         <div className="loading-screen">
-          <div className="font-bold text-xl text-purple-700 p-2">LawGateRooms</div>
+          <div className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-5xl font-extrabold text-transparent">
+            LawGateRooms
+          </div>
           <div className="progress-bar-container">
-            <div className="progress-bar" style={{ width: `${loadingProgress}%` }}></div>
+            <div
+              className="progress-bar bg-gradient-to-r from-pink-500 to-violet-500"
+              style={{ width: `${loadingProgress}%` }}
+            ></div>
           </div>
         </div>
       )}
