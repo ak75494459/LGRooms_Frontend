@@ -5,19 +5,26 @@ import { useNavigate } from "react-router-dom";
 
 const AuthCallbackPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth0();
-
+  const { user, isLoading } = useAuth0();
   const { createUser } = useCreateMyUser();
-
   const hasCreatedUser = useRef(false);
+
   useEffect(() => {
-    if (user?.sub && user?.email && !hasCreatedUser.current) {
-      createUser({ auth0Id: user.sub, email: user.email });
-      hasCreatedUser.current = true;
-       navigate("/");
+    const createAndRedirect = async () => {
+      if (user?.sub && user?.email && !hasCreatedUser.current) {
+        hasCreatedUser.current = true;
+        try {
+          await createUser({ auth0Id: user.sub, email: user.email });
+          navigate("/");
+        } catch (err) {
+          console.error("Failed to create user", err);
+        }
+      }
+    };
+    if (!isLoading && user) {
+      createAndRedirect();
     }
-   
-  }, [createUser, navigate, user]);
+  }, [user, isLoading, createUser, navigate]);
 
   return <>Loading...</>;
 };
