@@ -79,14 +79,15 @@
 .hero-section {
   height: 25rem;
   width: 100%;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
   border-radius: 1rem;
-  background: linear-gradient(to right, #ff9966, #ff5e62);
+  background: linear-gradient(to right, black, white);
   animation: bgChange 6s ease-in-out infinite alternate;
+ 
   position: relative;
 }
 

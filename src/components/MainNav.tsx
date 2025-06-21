@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button } from "./ui/button";
 import UserNameMenu from "./UserNameMenu";
 
 const MainNav = () => {
@@ -10,15 +9,14 @@ const MainNav = () => {
       {isAuthenticated ? (
         <UserNameMenu />
       ) : (
-        <Button
-          variant="ghost"
-          className="font-bold hover:text-[#91999E] hover:bg-white"
+        <div
+          className="font-bold  hover:underline  cursor-pointer"
           onClick={async () => {
             await loginWithRedirect();
           }}
         >
           Log In
-        </Button>
+        </div>
       )}
     </span>
   );

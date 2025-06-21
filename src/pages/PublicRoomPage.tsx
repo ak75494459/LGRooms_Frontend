@@ -32,7 +32,7 @@ const HeroSection = () => {
           alt="Shifting Help"
           className="mx-auto animate-bounce"
         />
-        <h1 className="text-black text-xl font-extrabold animate-textMove">
+        <h1 className="text-white text-xl font-extrabold animate-textMove">
           We help in shifting
         </h1>
       </div>
@@ -57,7 +57,7 @@ const HeroSection = () => {
           alt="Clean Environment"
           className="m-auto animate-bounce"
         />
-        <h1 className="font-bold text-black text-xl font-extrabold animate-textMove">
+        <h1 className="font-bold text-white text-xl font-extrabold animate-textMove">
           Clean Environment
         </h1>
       </div>

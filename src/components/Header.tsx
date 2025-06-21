@@ -4,11 +4,11 @@ import MainNav from "./MainNav";
 
 const Header = () => {
   return (
-    <div className="border-b-2 border-b-[#91999E] py-6">
+    <div className="border-b-2 border-b-[#91999E] py-6 bg-[]">
       <div className="container mx-auto flex justify-between items-center">
         <Link
           to="/"
-          className="text-3xl max-sm:text-xl font-bold tracking-tight text-black hover:text-[#91999E]"
+          className="text-3xl max-sm:text-xl font-bold tracking-tight hover:text-[#91999E]"
         >
           LawGateROOms
         </Link>
