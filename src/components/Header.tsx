@@ -10,7 +10,7 @@ const Header = () => {
           to="/"
           className="text-3xl max-sm:text-xl font-bold tracking-tight hover:text-[#91999E]"
         >
-          LawGateROOms
+          WEBSITE NAME
         </Link>
 
         <div className="md:hidden">

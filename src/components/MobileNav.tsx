@@ -30,7 +30,7 @@ const MobileNav = () => {
                 {user?.email}
               </span>
             ) : (
-              <span>Welcome to LovelyRent.com</span>
+              <span>Welcome to yourwebiste</span>
             )}
           </SheetTitle>
           <Separator />

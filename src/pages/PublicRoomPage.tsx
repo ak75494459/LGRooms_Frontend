@@ -4,9 +4,9 @@ import PublicRoomCard from "@/components/PublicRoomCard";
 import SearchBar, { searchForm } from "@/components/SearchBar";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import video from "../assets/video.mp4";
-import shift from "../assets/shift.png";
-import clean from "../assets/clean.png";
+// import video from "../assets/video.mp4";
+// import shift from "../assets/shift.png";
+// import clean from "../assets/clean.png";
 
 export type PublicRoomPageState = {
   page: number;
@@ -26,7 +26,7 @@ const HeroSection = () => {
       ))}
 
       {/* Left Section */}
-      <div className="hidden md:block ml-1">
+      {/* <div className="hidden md:block ml-1">
         <img
           src={shift}
           alt="Shifting Help"
@@ -35,10 +35,10 @@ const HeroSection = () => {
         <h1 className="text-white text-xl font-extrabold animate-textMove">
           We help in shifting
         </h1>
-      </div>
+      </div> */}
 
       {/* Video Section */}
-      <video
+      {/* <video
         autoPlay
         loop
         muted
@@ -48,10 +48,10 @@ const HeroSection = () => {
       >
         <source src={video} type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
+      </video> */}
 
       {/* Right Section */}
-      <div className="hidden md:block mr-1">
+      {/* <div className="hidden md:block mr-1">
         <img
           src={clean}
           alt="Clean Environment"
@@ -60,7 +60,7 @@ const HeroSection = () => {
         <h1 className="font-bold text-white text-xl font-extrabold animate-textMove">
           Clean Environment
         </h1>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -107,7 +107,7 @@ const PublicRoomPage = () => {
           />
 
           {/* Public Rooms List */}
-          <div className={results?.pagination?.page !== 1 ? "mt-[8rem]" : ""}>
+          <div className={results?.pagination?.page !== 1 ? "mt-[6rem]" : ""}>
             <PublicRoomCard
               publicRooms={results?.data ?? []}
               isLoading={isLoading}
@@ -124,7 +124,7 @@ const PublicRoomPage = () => {
       ) : (
         <div className="loading-screen">
           <div className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-5xl font-extrabold text-transparent">
-            LawGateRooms
+            WEBSITE LOADING...
           </div>
           <div className="progress-bar-container">
             <div
